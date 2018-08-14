@@ -33,55 +33,48 @@ int main ()
 	int x = 0;
 	int difference = 0;
 	vector<int> integers;
+	vector<bool> differences;
 	
 
 	while(cin >> n)
 	{
 		x = 0;
 		integers.clear();
+		differences.clear();
 
 		for(int i = 0; i < n; i++)
 		{
 			scanf("%d", &x);
 			integers.push_back(x);
+			differences.push_back(false);
 		}
 
-		vector<int>::iterator it = integers.begin();
 		
 
-		while(it < integers.end()-1)
+		for(int i = 0; i < n; i ++)
 		{
-			//printf("Antes da diferenca\n");
-			int a = *it;
-			//printf("a = %d\n", a);
-			//printf("it antes = %d\n", *it);
-			int b = *(it+1);
-			//printf("it depois = %d\n", *it);
-			//printf("b = %d\n", b);
-
+			int a = integers[i];
+			int b = integers[i+1];
 			difference = abs(a - b);
-			//printf("difference = %d\n", difference);
 			
 			if(difference < n && difference > 0)
 			{
-				//printf("Chega aqui %d\n", *it);
-				integers.erase(it);
-				it = integers.begin();
-				//printf("Novo it %d\n", *it);
-				//printf("comeco do integers %d\n", *integers.begin());
-				//printf("final do integers %d\n", *integers.end());
+				if(!differences[difference])
+					differences[difference] = true;
 			}
-			else
-				it++;
 		}
-		
-		if(integers.size() == 1)
+
+		differences[0] = true;
+
+		for(int i = 0; i < n; i++)
 		{
-			printf("Jolly\n");
-		}
-		else
-		{
-			printf("Not jolly\n");
+			if(!differences[i])
+			{
+				printf("Not jolly\n");
+				break;
+			}
+			if(i == n - 1)
+				printf("Jolly\n");
 		}
 		
 	}
